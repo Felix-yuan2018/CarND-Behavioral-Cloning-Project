@@ -71,19 +71,27 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to change on mature model so that you can avoid redesigning a model, which is the essence of transfer learning.
+So I chose  to use a convolution neural network model similar to the  NVIDA’s model which was introduced in the paper “End to End Learning for Self-Driving Cars“,I thought this model might be appropriate, there are two reasons list below:
+First, this project is very similar to NVIDA’s project, and also NVIDA’s model is neither complicated or so large, I even train the model on my own laptop (Due to the network and other factors, GPU performance failed to play well, even often for no reason to interrupt, which wasted too much of my time)
+ Second, the most important thing is that it had been proved successful, so I can spend more time working outside of the model, such as data balance processing and so on.
+I started with three cameras in the center, left, and right three images, and I added the angle correction for the left and right images:
+Center_angle = angle
+Left_angle = angle + correction
+Right_angle = angle – correction
+After this I got 8036*3 = 24108 images with angles.
+I then processed the image, resizing the image from 160*320 to 66*200, and make sure the processed image was in RGB format. ( model.py line127:136)
+And randomly used rotate and shift method to do data augmentation(model.py line143:192). After this I got one time additional data for training and validation.
+I split the image and steering angle data into a training and validation set, validation data accounts for 20%. 
+And then train the model and run the simulator to see how well the car was driving around track one. Unfortunately, the car almost go straight line, it seems that the car has not mastered the skills of turning.
+Then I looked at the turning angle values of the data, I found that more than half of the data that the steering angle were zero or close to zero, the model learned from this data that go straight, without learning to turn.
+So we need to reduce these smaller angle data sets, I did some experiments and found that if the absolute value of the angle was less than 0.04 or below, and adjust left and right offset angles, In my model car can be driven inside the road without hitting the road boundary.
+Finally I chose absolute value of the angle as 0.02, and keep 4% of these data, set the angle offset as 0.21;
+Also I found that my model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting.
+To combat the overfitting, I modified the model by adding a drop-layer after each full connect-layer, and set 0.45 as dropped percentages. The final “model MSE loss’’ see 
+bellow pic.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+[image1]: ./history.png
 
 #### 2. Final Model Architecture
 
