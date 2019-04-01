@@ -1,6 +1,6 @@
-# **Behavioral Cloning** 
+# **Udacity Self-Driving Car Engineer Nanodegree - Behavioral Cloning Project** 
+*My solution to the Udacity Self-Driving Car Engineer Nanodegree Behavioral Cloning project.*
 
-## Writeup Template
 
 **Behavioral Cloning Project**
 
