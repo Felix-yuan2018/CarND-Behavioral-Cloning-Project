@@ -107,7 +107,7 @@ Also I found that my model had a low mean squared error on the training set but 
 
 To combat the overfitting, I modified the model by adding a drop-layer after each full connect-layer, and set 0.45 as dropped percentages. The final “model MSE loss’’ see bellow pic.
 
-![alt text][model MSE loss](https://github.com/Felix-yuan2018/CarND-Behavioral-Cloning-Project/blob/master/history.png)
+![alt text](https://github.com/Felix-yuan2018/CarND-Behavioral-Cloning-Project/blob/master/history.png)
 
 #### 2. Final Model Architecture
 
