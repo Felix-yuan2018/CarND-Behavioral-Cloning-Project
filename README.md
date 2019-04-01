@@ -116,5 +116,5 @@ The final model architecture (model.py lines 201-244).
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
 
-![alt text][image1]
+![alt text](https://github.com/Felix-yuan2018/CarND-Behavioral-Cloning-Project/blob/master/Model%20Architecture.png)
 
